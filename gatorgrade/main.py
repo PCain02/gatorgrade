@@ -15,6 +15,7 @@ from gatorgrade.output.output import run_checks
 # define the emoji that will be prepended to the help message
 gatorgrade_emoji = "🐊"
 
+
 # create a Typer app that
 # --> does not support completion
 # --> has a specified help message with an emoji
