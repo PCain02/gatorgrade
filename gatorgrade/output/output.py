@@ -310,18 +310,24 @@ def run_checks(
         # and thus they must be displayed
         if result is not None:
             result.print()
-            results.append((result, command_output))
+            results.append((result))
 
     # determine if there are failures and then display them
-    failed_results = list(filter(lambda result: not result[0].passed, results))
+    failed_results = list(filter(lambda result: not result.passed, results))
     # print failures list if there are failures to print
     # and print what ShellCheck command that Gatorgrade ran
     if len(failed_results) > 0:
         print("\n-~-  FAILURES  -~-\n")
         for result in failed_results:
-            result[0].print(show_diagnostic=True)
-            if result[1] is not None:
-                rich.print(f"[blue]   → Command that failed: [green]{result[1]}")
+            check = result.check
+            result.print(show_diagnostic=True)
+            command_output = (
+                result.command_output if hasattr(result, "command_output") else None
+            )
+            if (
+                isinstance(check, ShellCheck) and command_output
+            ):  # Handle command_output for ShellCheck
+                print(f"[blue]   → Command that failed: [green]{command_output}")
     # determine how many of the checks passed and then
     # compute the total percentage of checks passed
     passed_count = len(results) - len(failed_results)
