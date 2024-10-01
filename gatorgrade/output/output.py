@@ -1,4 +1,5 @@
 """Run checks and display whether each has passed or failed."""
+
 import datetime
 import json
 import os
@@ -303,7 +304,7 @@ def run_checks(
             command_output = check.command
         # run a check that GatorGrader implements
         elif isinstance(check, GatorGraderCheck):
-            result = _run_gg_check(check)        
+            result = _run_gg_check(check)
 
         # there were results from running checks
         # and thus they must be displayed
@@ -313,7 +314,7 @@ def run_checks(
 
     # determine if there are failures and then display them
     failed_results = list(filter(lambda result: not result[0].passed, results))
-    # print failures list if there are failures to print 
+    # print failures list if there are failures to print
     # and print what ShellCheck command that Gatorgrade ran
     if len(failed_results) > 0:
         print("\n-~-  FAILURES  -~-\n")
@@ -359,7 +360,7 @@ def print_with_border(text: str, rich_color: str):
     # Upper right corner
     downleft = "\u2517"
     # Lower left corner
-    downright = "\u251B"
+    downright = "\u251b"
     # Lower right corner
     vert = "\u2503"
     # Vertical line
